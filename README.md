@@ -1,1 +1,97 @@
-# Test2_OOP
+# Java OOP – B változat
+UMFST – Informatika II. év | Java OOP gyakorlati felmérő | 90 perc | 20 pont
+Beadás: GitHub/GitLab repository URL az oktató által megadott felületen, a 90 perc lejárta előtt. A
+repository tartalmazza a futtatható Java-forrásokat és a README.md fájlt. Papíralapú beadás nincs.
+AI használata tilos. Az internetes példakódok másolása sem helyettesíti az önálló munkát. A programot az
+oktató fordítja/futtatja, és szóban rákérdezhet bármely részletére.
+Kötelező Git-folyamat: legalább 5 értelmes commit, amelyek egyértelműen az 1–5. feladathoz tartoznak.
+Például: Task 1 fix constructor ... Task 5 implement logic. Öt üres vagy kizárólag README-t
+módosító commit nem felel meg.
+Névmegőrzés: a megadott osztály-, mező-, paraméter- és metódusneveket, valamint az előírt
+metódusszignatúrákat pontosan meg kell tartani. Új segédmetódusok készíthetők; a meglévő nevek átírása
+nem elfogadható.
+Kódminőség: Java naming convention (osztályok PascalCase, metódusok és változók camelCase), 4
+szóközös következetes behúzás, jól elkülönített felelősségek, értelmes angol nyelvű kommentek a nem
+triviális logikához. Nem szükséges minden sorhoz komment.
+Levonások a 20 pontból: hiányzó vagy értelmetlen commit: –0,5 pont/db (legfeljebb –2,5); kötelező
+nevek/szignatúrák indokolatlan módosítása: –1 pont; rendezetlen kód/konvenciók megsértése: –1 pont;
+hiányzó, vagy félrevezető érdemi kommentek: –1 pont; hiányzó README vagy nem használható repository
+link: –1 pont. Az összes levonás legfeljebb 5 pont; negatív végső pontszám nincs.
+README.md: a futtatás lépései, az elvárt kimenet, valamint 3–5 mondat arról, hol valósul meg öröklés és
+polimorfizmus. Minden feladat megoldását Java-ban készítsd el; Java 8+ nyelvi újdonság nem szükséges.
+B változat – Űrzokni-teleportációs hivatal
+Kiinduló kód: másold a következő osztályokat a projektbe, majd javítsd/kiegészítsd a követelményeknek
+megfelelően. A hibák szándékosak. A feladat nem igényel adatbázist, hálózatot vagy GUI-t.
+class UrZokni {
+public String azonosito;
+private int tisztasagPont;
+public UrZokni(String azonosito, int tisztasagPont) {
+azonosito = azonosito;
+this.tisztasagPont = tisztasagPont;
+}
+public void mosas(int pluszPont) {
+tisztasagPont += pluszPont;
+}
+public int getTisztasagPont() {
+return tisztasagPont;
+}
+public String cimke() {
+return azonosito + ": " + tisztasagPont;
+}
+}
+class TeleportalosUrZokni extends UrZokni {
+private String galaxis;
+public TeleportalosUrZokni(String azonosito,
+int tisztasagPont,
+String galaxis) {
+super(azonosito, tisztasagPont);
+this.galaxis = galaxis;
+}
+@Override
+public String cimke() {
+return "Teleport zokni: " + azonosito;
+}
+}
+public class Main {
+public static void main(String[] args) {
+UrZokni z = new TeleportalosUrZokni(
+"ZOKNI-42", 4, "Andromeda");
+z.mosas(6);
+System.out.println(z.cimke());
+}
+}
+1. Konstruktor és objektumállapot – 3 pont
+Javítsd a UrZokni konstruktorát úgy, hogy a azonosito ténylegesen az átadott értéket tárolja. Az eredeti
+konstruktor-paraméterek és nevek maradjanak meg. Írj rövid angol kommentet a javított sorhoz, amely
+megmagyarázza a problémát.
+2. Adatrejtés és ellenőrzött elérés – 3 pont
+A azonosito mező legyen private. Hozz létre egy public String getAzonosito() metódust. A
+leszármazott osztály ne érje el közvetlenül a szülő privát mezőjét; a gettert használja. Ne nevezz át
+semmilyen meglévő metódust.
+3. Validáció és szabályos állapot – 4 pont
+A konstruktor ne engedjen negatív tisztasagPont értéket. A mosas(int pluszPont) metódus ne fogadjon
+negatív paramétert. Mindkét hibás bemenetnél dobj IllegalArgumentException-t. Null vagy üres
+azonosito se legyen elfogadható. A 0 érvényes.
+4. Öröklés, felülírás, polimorfizmus – 6 pont
+Javítsd a TeleportalosUrZokni cimke() metódusát úgy, hogy a saját speciális mezőjét is megjelenítse. Az
+alapváltozat adja vissza az azonosítót és a pontszámot; a leszármazott változat azonosítót, pontszámot és
+a speciális mezőt. A main-ben készíts egy alap- és egy leszármazott objektumot, tárold őket UrZokni típusú
+referenciákban és hívd meg mindkettőn a cimke() metódust. A hívásnak a valódi objektumtípusnak
+megfelelő metódust kell futtatnia.
+5. Önálló algoritmikus feladat – 4 pont
+Az űrzoknik 1-től kezdődően kapnak sorszámot, de néhány eltűnt a teleportban. Implementáld pontosan
+ezt a statikus metódust: public static int elsoHianyzoZokni(int[] sorszamok). A legkisebb, pozitív
+hiányzó egész számot adja vissza. A bemenetben duplikátum, 0 és negatív szám is lehet; az eredeti tömböt
+ne módosítsd. Üres tömbre 1 az eredmény. Nem kell rendezést vagy haladó kollekciókat használnod.
+// Expected: 3
+int[] sorszamok = {4, 1, 2, 2, 0, -5};
+System.out.println(elsoHianyzoZokni(sorszamok));
+// Expected: 4
+System.out.println(elsoHianyzoZokni(
+new int[] {1, 2, 3}));
+A logikai feladat önálló: 4/20 pontot ér. A működő megoldás többet ér, mint egy jól hangzó magyarázat.
+Készíts hozzá legalább két további tesztesetet; a nem triviális cikluslogikát angol kommenttel magyarázd.
+Beadás előtti ellenőrzőlista
+□ Fordul és fut a Java-projekt. □ Mind az 5 feladat elkészült. □ Legalább 5 tartalmas commit. □ Változó-,
+osztály- és metódusnevek megtartva. □ Angol magyarázó kommentek. □ README és működő repository
+URL.
