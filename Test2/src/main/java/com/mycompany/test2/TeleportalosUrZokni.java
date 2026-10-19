@@ -12,6 +12,7 @@ this.galaxis = galaxis;
 
 @Override
 public String cimke() {
-return "Teleport zokni: " + getAzonosito();
+return "Teleport zokni: " + getAzonosito() + "," + getTisztasagPont()+ "," + galaxis;
+//To return all the elements we need to add it. Get will help return the value of an atribute that is private
 }
 }
